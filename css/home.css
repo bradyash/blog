@@ -28,6 +28,10 @@ body{
     background: #ffffff;
     z-index: 9;
 }
+.logo{
+    width: 50px;
+    height: auto;
+}
 
 .links-container{
     display: flex;
