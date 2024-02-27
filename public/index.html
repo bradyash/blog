@@ -36,10 +36,9 @@
 <!--        </div>-->
     </section>
 
-
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         const firebaseConfig = {
             apiKey: "AIzaSyA4x-_6syN58HrsTqB-AeobQWvJGuouKn4",
             authDomain: "blog-a0750.firebaseapp.com",
@@ -51,14 +50,13 @@
         };
 
         // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
+        window.app = initializeApp(firebaseConfig);
         window.db = getFirestore(app)
-
-        export {collection};
     </script>
 
-<script src="js/home.js"></script>
-
+<script src="js/index.js" defer></script>
+<script src="js/editor.js" defer></script>
+<script src="js/blog.js" defer></script>
 
 </body>
 </html>
