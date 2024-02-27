@@ -1,5 +1,3 @@
-import * as db from "@firebase/firestore";
-
 const blogTitleField = document.querySelector('.title')
 const articleField = document.querySelector('.article')
 
@@ -11,13 +9,47 @@ let bannerPath;
 const publishBtn = document.querySelector('.publish-btn')
 const uploadInput = document.querySelector('#image-upload')
 
-bannerImage.addEventListener('change', () => {
+
+bannerImage.addEventListener('change', function () {
     uploadImage(bannerImage, 'banner');
 })
 
-uploadInput.addEventListener('change', () => {
+uploadInput.addEventListener('change', function () {
     uploadImage(uploadInput, 'image');
 })
+
+publishBtn.addEventListener('click', function ()  {
+    console.log('Clicked...')
+    console.log('db: ' + db)
+    if(articleField.value.length && blogTitleField.value.length){
+        // generating id
+        let letters = 'abcdefghijklmnopqrstuvwxyz';
+        let blogTitle = blogTitleField.value.split(" ").join("-");
+        let id = '';
+        for(let i = 0; i < 4; i++){
+            id += letters[Math.floor(Math.random() * letters.length)];
+        }
+
+        // setting up docName
+        let docName = `${blogTitle}-${id}`;
+        let date = new Date(); // for published at info
+
+        //access firestore with db variable;
+        db.collection('blogs').doc(docName).set({
+            title: blogTitleField.value,
+            article: articleField.value,
+            bannerImage: bannerPath,
+            publishedAt: `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
+        })
+            .then(() => {
+                location.href = `/${docName}`;
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    }
+})
+
 
 const uploadImage = (uploadFile, uploadType) => {
     const [file] = uploadFile.files;
@@ -50,32 +82,3 @@ const addImage = (imagepath, alt) => {
 
 let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-publishBtn.onClick = () => {
-    if(articleField.value.length && blogTitleField.value.length){
-        // generating id
-        let letters = 'abcdefghijklmnopqrstuvwxyz';
-        let blogTitle = blogTitleField.value.split(" ").join("-");
-        let id = '';
-        for(let i = 0; i < 4; i++){
-            id += letters[Math.floor(Math.random() * letters.length)];
-        }
-
-        // setting up docName
-        let docName = `${blogTitle}-${id}`;
-        let date = new Date(); // for published at info
-
-        //access firstore with db variable;
-        db.collection('blogs').doc(docName).set({
-            title: blogTitleField.value,
-            article: articleField.value,
-            bannerImage: bannerPath,
-            publishedAt: `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
-        })
-            .then(() => {
-                location.href = `/${docName}`;
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
-}

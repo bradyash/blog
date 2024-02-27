@@ -8,7 +8,6 @@
 
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/editor.css">
-    <script src="js/editor.js"></script>
 
 </head>
 <body>
@@ -27,16 +26,30 @@
 </div>
 
 <div class="blog-options">
-    <button class="btn dark publish-btn">Publish</button>
+    <button class="publish-btn btn dark" >Publish</button>
     <input type="file" accept="image/*" id="image-upload" hidden>
     <label for="image-upload" class="btn grey upload-btn">Upload Image</label>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    const firebaseConfig = {
+        apiKey: "AIzaSyA4x-_6syN58HrsTqB-AeobQWvJGuouKn4",
+        authDomain: "blog-a0750.firebaseapp.com",
+        projectId: "blog-a0750",
+        storageBucket: "blog-a0750.appspot.com",
+        messagingSenderId: "939477394565",
+        appId: "1:939477394565:web:05a602e7fc60d0a2d9b5ec",
+        measurementId: "G-GDY1JMSCTT"
+    };
 
-<script src="js/firebase.js"></script>
-<script src="js/editor.js"></script>
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app)
+</script>
+
+<script src="js/editor.js" defer></script>
 
 </body>
 </html>
