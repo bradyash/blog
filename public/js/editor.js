@@ -18,15 +18,15 @@ uploadInput.addEventListener('change', function () {
     uploadImage(uploadInput, 'image');
 })
 
-publishBtn.addEventListener('click', function ()  {
+publishBtn.addEventListener('click', async function () {
     console.log('Clicked...')
     console.log('db: ' + db)
-    if(articleField.value.length && blogTitleField.value.length){
+    if (articleField.value.length && blogTitleField.value.length) {
         // generating id
         let letters = 'abcdefghijklmnopqrstuvwxyz';
         let blogTitle = blogTitleField.value.split(" ").join("-");
         let id = '';
-        for(let i = 0; i < 4; i++){
+        for (let i = 0; i < 4; i++) {
             id += letters[Math.floor(Math.random() * letters.length)];
         }
 
@@ -35,7 +35,8 @@ publishBtn.addEventListener('click', function ()  {
         let date = new Date(); // for published at info
 
         //access firestore with db variable;
-        db.collection('blogs').doc(docName).set({
+        const blogs = db.collection('blogs').doc(docName);
+        await blogs.set({
             title: blogTitleField.value,
             article: articleField.value,
             bannerImage: bannerPath,
