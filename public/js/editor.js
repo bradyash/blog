@@ -50,7 +50,7 @@ const addImage = (imagepath, alt) => {
 
 let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-publishBtn.addEventListener('click', () => {
+publishBtn.onClick = () => {
     if(articleField.value.length && blogTitleField.value.length){
         // generating id
         let letters = 'abcdefghijklmnopqrstuvwxyz';
@@ -78,4 +78,4 @@ publishBtn.addEventListener('click', () => {
                 console.error(err);
             })
     }
-})
+}
