@@ -9,11 +9,14 @@
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/editor.css">
 
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 </head>
 <body>
 <div class="banner">
     <input type="file" accept="image/*" id="banner-upload" hidden>
-    <label for="banner-upload" class="banner-upload-btn"><img src="images/bird-fav.png" alt="upload banner"> </label>
+    <label for="banner-upload" class="banner-upload-btn"><ion-icon name="add-circle-outline"></ion-icon></label>
 </div>
 <div class="blog">
     <label>
@@ -31,10 +34,27 @@
     <label for="image-upload" class="btn grey upload-btn">Upload Image</label>
 </div>
 
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    const firebaseConfig = {
+        apiKey: "AIzaSyA4x-_6syN58HrsTqB-AeobQWvJGuouKn4",
+        authDomain: "blog-a0750.firebaseapp.com",
+        projectId: "blog-a0750",
+        storageBucket: "blog-a0750.appspot.com",
+        messagingSenderId: "939477394565",
+        appId: "1:939477394565:web:05a602e7fc60d0a2d9b5ec",
+        measurementId: "G-GDY1JMSCTT"
+    };
 
+    // Initialize Firebase
+    window.app = initializeApp(firebaseConfig);
+    window.db = getFirestore(app)
+    window.collection = collection
+</script>
 
-<script src="js/index.js" defer></script>
 <script src="js/editor.js" defer></script>
+<script src="js/index.js" defer></script>
 
 </body>
 </html>
