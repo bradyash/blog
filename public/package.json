@@ -11,6 +11,7 @@
     "react-dom": "^18.2.0"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "dev": "webpack --watch --mode=development",
+    "prod": "webpack --mode=production"
   }
 }

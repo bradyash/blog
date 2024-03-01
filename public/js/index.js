@@ -1,19 +1,27 @@
-import _ from 'lodash';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection } from 'firebase/firestore'
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-function component() {
-    const element = document.createElement('div');
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+    apiKey: "AIzaSyA4x-_6syN58HrsTqB-AeobQWvJGuouKn4",
+    authDomain: "blog-a0750.firebaseapp.com",
+    projectId: "blog-a0750",
+    storageBucket: "blog-a0750.appspot.com",
+    messagingSenderId: "939477394565",
+    appId: "1:939477394565:web:05a602e7fc60d0a2d9b5ec",
+    measurementId: "G-GDY1JMSCTT"
+};
 
-    // Lodash, now imported by this script
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
-    return element;
-}
-
-document.body.appendChild(component());
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app)
 
 const blogSection = document.querySelector('.blogs-section');
 
-db.collection("blogs").get().then((blogs) => {
+collection(db, "blogs").get().then((blogs) => {
     blogs.forEach(blog => {
         if(blog.id !== decodeURI(location.pathname.split("/").pop())){
             createBlog(blog);
