@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection } from 'firebase/firestore'
+import { getFirestore, collection, getDocs} from 'firebase/firestore'
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
@@ -21,15 +21,18 @@ const db = getFirestore(app)
 
 let blogId = decodeURI(location.pathname.split("/").pop());
 
-let docRef = collection(db, "blogs").doc(blogId);
-
-docRef.get().then((doc) => {
-    if(doc.exists){
-        setupBlog(doc.data());
-    } else{
-        location.replace("/");
-    }
-})
+try {
+    const querySnapshot = await getDocs(collection(db, "blogs"));
+    querySnapshot.forEach((doc) => {
+        if (doc.exists) {
+            setupBlog(doc.data());
+        } else {
+            location.replace("/");
+        }
+    });
+} catch (error) {
+    console.error("Error getting documents: ", error);
+}
 
 const setupBlog = (data) => {
     const banner = document.querySelector('.banner');
@@ -48,7 +51,7 @@ const setupBlog = (data) => {
 
 const addArticle = (ele, data) => {
     data = data.split("\n").filter(item => item.length);
-    // console.log(data);
+    console.log(data);
 
     data.forEach(item => {
         // check for heading
