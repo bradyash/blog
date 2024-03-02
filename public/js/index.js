@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection } from 'firebase/firestore'
+import { getFirestore, collection, getDocs } from 'firebase/firestore'
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
@@ -21,14 +21,20 @@ const db = getFirestore(app)
 
 const blogSection = document.querySelector('.blogs-section');
 
-collection(db, "blogs").get().then((blogs) => {
-    blogs.forEach(blog => {
-        if(blog.id !== decodeURI(location.pathname.split("/").pop())){
+
+try {
+    let docs = await getDocs(collection(db, "blogs"));
+    docs.forEach(blog => {
+        console.log(blog.id);
+        console.log(blog.data);
+        if (blog.id !== decodeURI(location.pathname.split("/").pop())) {
             createBlog(blog);
         }
-    })
-})
-const createBlog = (blog) => {
+    });
+} catch (e) {
+    console.log(e)
+}
+function createBlog(blog) {
     let data = blog.data();
     blogSection.innerHTML += `
     <div class="blog-card">
