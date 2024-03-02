@@ -16,10 +16,6 @@ app.get('/editor', (req,res) => {
     res.sendFile(path.join(initial_path, "editor.html"))
 })
 
-app.listen("3000", () => {
-    console.log('listening......');
-})
-
 app.post('/upload', (req, res) => {
     let file = req.files.image;
     let date = new Date();
@@ -43,4 +39,8 @@ app.get("/:blog", (req, res) => {
 
 app.use((req, res) => {
     res.json("404");
+})
+
+app.listen("5000", () => {
+    console.log('listening......');
 })
