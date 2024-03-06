@@ -64,7 +64,7 @@ publishBtn.addEventListener('click', async function () {
                 bannerImage: bannerPath,
                 publishedAt: `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
             });
-            location.href = `/${docName}`;
+            location.href = `/blog/${docName}`;
         }
         catch (err) {
             console.error(err);

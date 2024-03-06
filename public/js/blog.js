@@ -24,7 +24,7 @@ let blogId = decodeURI(location.pathname.split("/").pop());
 try {
     const querySnapshot = await getDocs(collection(db, "blogs"));
     querySnapshot.forEach((doc) => {
-        if (doc.exists) {
+        if (doc.exists && doc.id === blogId) {
             setupBlog(doc.data());
         } else {
             location.replace("/");
